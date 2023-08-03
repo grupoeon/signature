@@ -1,287 +1,405 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <title>Firma Electrónica</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="./css/styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <script src="./lib/autosize-input.js"></script>
-    <script type="module">
-      import { createApp } from "https://unpkg.com/vue@3.0.6/dist/vue.esm-browser.js";
+<html lang="en">
 
-      const App = {
-        data() {
-          return {
-            base: window.location.toString().replace("index.html", ""),
-            primary: "#00A950",
-            primaryTransparent: "#09ab4c11",
-            secondary: "#ebe300",
-            email: "natalia.tatian@tiendapodium.com.ar",
-            name: "Natalia Tatián",
-            role: "Socia",
-            number: "351 - 2701718",
-          };
-        },
-        computed: {
-          variables() {
-            return {
-              "--primary": this.primary,
-              "--primary-transparent": this.primaryTransparent,
-              "--secondary": this.secondary,
-            };
-          },
-          normalizedNumber() {
-            return this.number.replace(/\D/gim, "");
-          },
-        },
-        methods: {
-          copyElementToClipboard(element) {
-            window.getSelection().removeAllRanges();
-            let range = document.createRange();
-            range.selectNode(
-              typeof element === "string"
-                ? document.querySelector(element)
-                : element
-            );
-            window.getSelection().addRange(range);
-            document.execCommand("copy");
-            window.getSelection().removeAllRanges();
-          },
-        },
-        mounted() {
-          [...document.querySelectorAll(".reply input")].forEach((input) =>
-            autosizeInput(input, { minWidth: true })
-          );
-        },
-      };
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firma de Correo Electrónico</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.3/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&amp;display=swap" rel="stylesheet">
+</head>
 
-      createApp(App).mount("body");
-    </script>
-  </head>
-
-  <body>
-    <section id="app" :style="variables">
-      <section class="background">
-        <section class="content">
-          <section class="email" id="pepe">
-            <section class="header">
-              <section class="profile-picture">
-                <img :src="`${base}/img/eon.png`" />
-              </section>
-              <section class="info">
+<body x-data="app">
+    <section id="email">
+        <section id="email-header">
+            <section id="email-profile-picture">
+                <img src="https://i.imgur.com/iYM3HuC.png" alt>
+            </section> 
+            <section id="email-header-information">
                 <h1>¡Tu firma electrónica está casi lista!</h1>
-                <h2><b>De:</b> soporte@grupoeon.com.ar</h2>
-                <h2><b>Para:</b> {{ email }}</h2>
-              </section>
+                <p><b>De:</b> soporte@grupoeon.com.ar</p> 
+                <p><b>Para:</b> carlos.moyano@grupoeon.com.ar</p>
             </section>
-            <section class="content">
-              Hola <b>{{ name }}</b>,<br />
-              <br />
-              Queríamos darte la bienvenida a tu firma electrónica.<br />
-              <br />
-              Desde acá vas a poder generar firmas electrónicas para tus
-              distintos correos electrónicos, para copiarlas y pegarlas en tu
-              cliente de correo favorito.<br />
-              <br />
-              <small>
-                <b>Aclaración importante:</b>
-                Recordá que no todos los proveedores de correo electrónico
-                (Gmail, Outlook) respetan las mismas reglas de estilo, es
-                posible que encuentres diferencias entre uno y otro al pegar la
-                firma electrónica.
-              </small>
-            </section>
-            <section class="reply">
-              <section class="info">
-                <h2><b>De:</b> {{ email }}</h2>
-                <h2><b>Para:</b> soporte@grupoeon.com.ar</h2>
-              </section>
-              <hr />
-              <section class="content">
-                ¡Muchas gracias! Ahora la configuro..<br />
-                <br />
-                Mi nombre es <input type="text" v-model="name" />, mi correo
-                electrónico es <input type="text" v-model="email" />, mi número
-                de teléfono es <input type="text" v-model="number" /> y soy
-                <input type="text" v-model="role" /> en la empresa.
-              </section>
-              <table
-                id="signature"
-                style="
-                  width: 450px;
-                  height: 130px;
-                  border-collapse: collapse;
-                  border: 3px solid #000000;
-                  font-family: Arial !important;
-                "
-                border="0"
-                cellpadding="0"
-                cellspacing="0"
-              >
-                <tr>
-                  <td
-                    style="
-                      width: 215px;
-                      background: #ffffff;
-                      text-align: center;
-                      vertical-align: middle;
-                    "
-                  >
-                    <img style="width: 140px" :src="`${base}/img/logo.png`" />
-                  </td>
-                  <td
-                    style="
-                      width: 59px;
-                      vertical-align: baseline;
-                      line-height: 0;
-                      background-color: black;
-                    "
-                  >
-                    <img
-                      :src="`${base}/img/separator.png`"
-                      style="
-                        height: 100%;
-                        display: inline-block;
-                        margin-left: -1px;
-                      "
-                    />
-                  </td>
-                  <td
-                    style="
-                      width: 176px;
-                      background: #000000;
-                      color: white;
-                      padding: 0.25rem 1rem;
-                      font-size: 13px;
-                    "
-                  >
-                    <h1
-                      style="
-                        color: white;
-                        margin: 0;
-                        font-size: 16px;
-                        text-transform: uppercase;
-                        line-height: 1em;
-                      "
-                    >
-                      {{ name }}
-                    </h1>
-                    <h2
-                      class="role"
-                      style="
-                        margin: 0;
-                        margin-bottom: 10px;
-                        font-size: 14px;
-                        font-weight: normal;
-                        text-transform: capitalize;
-                        line-height: 1em;
-                      "
-                    >
-                      {{ role }}
-                    </h2>
-                    <table
-                      style="padding: 0; margin: 0; border-collapse: collapse"
-                      cellpadding="0"
-                      cellmargin="0"
-                      border="0"
-                    >
-                      <tr>
-                        <td>
-                          <a
-                            style="
-                              color: white;
-                              text-decoration: none;
-                              margin-bottom: 2px;
-                              line-height: 1em;
-                              display: block;
-                            "
-                            href="https://tiendapodium.com.ar"
-                          >
-                            <img
-                              :src="`${base}/img/internet.png`"
-                              style="width: 12px; height: 12px"
-                            />
-                            tiendapodium.com.ar
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a
-                            style="
-                              color: white;
-                              text-decoration: none;
-                              margin-bottom: 2px;
-                              line-height: 1em;
-                              display: block;
-                            "
-                            href="https://www.instagram.com/tiendapodium/"
-                          >
-                            <img
-                              :src="`${base}/img/instagram.png`"
-                              style="width: 12px; height: 12px"
-                            />
-                            tiendapodium
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a
-                            style="
-                              color: white;
-                              text-decoration: none;
-                              margin-bottom: 2px;
-                              line-height: 1em;
-                              display: block;
-                            "
-                            href="https://www.facebook.com/TiendaPodium/"
-                          >
-                            <img
-                              :src="`${base}/img/facebook.png`"
-                              style="width: 12px; height: 12px"
-                            />
-                            Tienda Podium
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <a
-                            style="
-                              color: white;
-                              text-decoration: none;
-                              line-height: 1em;
-                              display: block;
-                            "
-                            :href="`https://wa.me/54${normalizedNumber}`"
-                          >
-                            <img
-                              :src="`${base}/img/whatsapp.png`"
-                              style="width: 12px; height: 12px"
-                            />
-                            {{ number }}
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-              <span></span>
-              <button
-                type="button"
-                @click="copyElementToClipboard('#signature')"
-              >
-                Copiar firma
-              </button>
-            </section>
-          </section>
         </section>
-      </section>
+        <section id="email-body">
+            <p>
+                Hola <b x-text="person.name"></b>,
+                <br><br>
+                Queríamos darte la bienvenida a tu firma electrónica.
+                Desde aquí vas a poder generar firmas electrónicas para tus distintos correos
+                electrónicos, para copiarlas y pegarlas en tu cliente de correo favorito.
+                <br><br> 
+                <small>
+                    <b>Aclaración importante:</b>
+                    Recordá que no todos los clientes de correo (Gmail, Outlook) respetan
+                    las mismas reglas de estilo, es posible que encuentres diferencias entre
+                    uno y otro al pegar la firma electrónica.
+                </small>
+            </p>
+            <section id="reply">
+                <section id="reply-header">
+                    <p><b>De:</b> <span x-text="person.email"></span>@grupoeon.com.ar</p>
+                    <p><b>Para:</b> desarrollo@grupoeon.com.ar</p>
+                </section>
+                <section id="reply-body">
+                    <p>
+                        ¡Muchas gracias! Ahora la configuro..<br>
+                        Mi nombre es
+                        <input type="text" x-model="person.name" x-init="autosizeInput($el)" x-on:input="autosizeInput($el)">, mi correo electrónico es
+                        <input type="text" x-model="person.email" x-init="autosizeInput($el)" x-on:input="autosizeInput($el)">@grupoeon.com.ar, mi número de teléfono es
+                        <input type="text" x-model="person.phone" x-init="autosizeInput($el)" x-on:input="autosizeInput($el)"> y soy
+                        <input type="text" x-model="person.role" x-init="autosizeInput($el)" x-on:input="autosizeInput($el)">
+                        en la empresa. 
+                    </p>
+                    <p>
+                        <input type="checkbox" x-model="person.meetings"> Quiero que los clientes puedan agendar reuniones conmigo
+                        <span x-show="person.meetings">
+                            y pueden hacerlo desde este enlace <input type="text" x-model="person.meetingsURL" x-on:input="autosizeInput">
+                        </span>
+                    </p>
+                    <br><br>
+                    <table id="signature" x-ref="signature">
+                        <tr>
+                            <td id="company">
+                                <a href="https://grupoeon.com.ar"><img class="logo" src="https://i.imgur.com/rq3JouB.gif" alt></a>
+                                <a class="url" href="https://grupoeon.com.ar">www.<span>grupoeon</span>.com.ar</a>
+                            </td>
+                            <td id="separator"></td>
+                            <td id="person">
+                                <h1 class="name" x-text="person.name"></h1>
+                                <h2 class="role" x-text="person.role"></h2>
+                                <ul class="contact">
+                                    <li>
+                                        <img class="icon icon-email" src="https://i.imgur.com/jNUDM9k.png" alt>
+                                        <a class="email" x-bind:href="`mailto:${person.email}@grupoeon.com.ar`">
+                                            <b x-text="person.email"></b>@grupoeon.com.ar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <img class="icon icon-phone" src="https://i.imgur.com/8O3TeNZ.png" alt>
+                                        <a class="phone" x-bind:href="`tel:${person.phone}`">
+                                            <b x-text="person.phone"></b>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <template x-if="person.meetings">
+                                    <a class="button" x-bind:href="person.meetingsURL">
+                                        <img class="icon icon-meetings" src="https://i.imgur.com/iWn3DYG.png" alt>
+                                        Agendar reunión
+                                    </a>
+                                </template>
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br>
+                    <button id="copy-signature" type="button" @click="await copySignature()">
+                        Copiar firma
+                    </button>
+                </section>
+            </section>
+        </section>
     </section>
-  </body>
+
+
+
+    <style id="signature-styles">
+        #signature {
+            position: relative;
+            width: 600px;
+            height: 150px;
+            font-family:  Arial, sans-serif;
+            font-size: 11px;
+            padding: 22.95px 0;
+            color: #264369;
+        }
+
+        #signature h3 {
+            text-decoration: underline;
+        }
+
+        #company {
+            vertical-align: middle;
+            width: 234px;
+        }
+
+        #company .url {
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #264369;
+            text-decoration: none;
+            font-size: 1.108307302749744em;
+        }
+
+        #company .url span {
+            font-weight: bold;
+        }
+
+        #company img {
+            display: block;
+            width: 154.2px;
+            margin: auto;
+            margin-bottom: 8px;
+        }
+
+        #separator {
+            display: inline-block;
+            position: absolute;
+            border-right: 1px solid #e3e3e3;
+            height: 80%;
+        }
+
+        #person {
+            vertical-align: middle;
+            padding-left: 25px;
+            text-align: right;
+            padding-right: 25px;
+        }
+
+        #person h1 {
+            font-weight: bold;
+            font-size: 2.1em;
+            width: 100%;
+            margin: 0;
+            margin-bottom: .15em;
+        }
+
+        #person h2 {
+            font-weight: normal;
+            font-size: 1.7em;
+            margin-top: 0;
+        }
+
+        #person ul {
+            font-size: 1.4863864731972039em;
+            padding: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        #person .icon {
+            vertical-align: middle;
+            width: 13px;
+            margin-right: 3px;
+        }
+
+        #person .icon-meetings {
+            vertical-align: text-bottom;
+            height: 15px;
+            margin-right: 3px;
+        }
+
+        #person a {
+            text-decoration: none !important;
+            color: #264369;
+        }
+
+        #person .phone {
+            font-family: monospace;
+            text-decoration: none !important;
+            color: #264369;
+        }
+
+        #person .button {
+            display: block;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-size: 15px;
+            background: #264369;
+            width: 150px;
+            padding: 0.5rem 0.5rem;
+            border-radius: 4px;
+            margin-left: auto;
+            margin-top: 1rem;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("alpine:init", () => {
+            Alpine.data("app", () => ({
+                person: {
+                    name: "Carlos Moyano",
+                    email: "carlos.moyano",
+                    phone: "+54 351 3933752",
+                    role: "Founder & Chief Sales Officer",
+                    meetings: true,
+                    meetingsURL: "https://grupoeon.com.ar"
+                },
+                async copySignature() {
+                    inlineStyles();
+                    const signature = this.$refs.signature;
+                    const type = "text/html";
+                    const blob = new Blob([signature.outerHTML], { type });
+                    const data = [new ClipboardItem({ [type]: blob })];
+
+                    await navigator.clipboard.write(data);
+                },
+                autosizeInput( input ) {
+                    Alpine.nextTick(() => {
+                        const textLength = input.value.length || 1; // Ensure minimum width of 1 character
+                        const minWidth = 50; // Minimum width in pixels
+
+                        input.style.width = Math.max(minWidth, textLength * 8) + 'px';
+                    });
+                }
+            }));
+        });
+
+        // This has one important flaw, you can only have one selector per element, as other matching selectos would override it.
+        function inlineStyles() {
+            const styleTag = document.getElementById( "signature-styles" );
+            const styleSheet = styleTag.sheet;
+
+            if (styleSheet instanceof CSSStyleSheet) {
+                const cssRules = styleSheet.cssRules || styleSheet.rules;
+
+                for (let j = 0; j < cssRules.length; j++) {
+                    const cssRule = cssRules[j];
+
+                    if (cssRule.type === 1) {
+                        const selectorText = cssRule.selectorText;
+                        const elements = document.querySelectorAll(selectorText);
+
+                        for (let k = 0; k < elements.length; k++) {
+                            const element = elements[k];
+                            element.style.cssText = cssRule.style.cssText;
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(262deg,#28446a,#d17612);
+            background-size: 500%;
+            animation: gradient-animation 10s ease infinite;
+            font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6f6368;
+            height: 100dvh;
+        }
+
+        #email {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,.1);
+            box-sizing: border-box;
+        }
+
+        #email input {
+            background: #FFECD6;
+            border: 0;
+            border-bottom: 2px solid #D17612;
+            font-family: Roboto Mono;
+            font-weight: bold;
+        }
+
+        #email-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        #email-profile-picture {
+            background: linear-gradient(45deg, #28446a,#d17612);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #email-profile-picture img {
+            width: 65%;
+        }
+
+        #email-header-information {
+            display: flex;
+            flex-flow: column;
+        }
+        
+        #email-header-information h1, #email-header-information p {
+            margin: 0;
+        }
+
+        #email-header-information h1 {
+            font-weight: 400;
+            font-size: 1.3rem;
+            color: black;
+            margin-bottom: .25rem;
+        }
+
+        #email-header-information p {
+            font-size: .8em;
+        }
+
+
+        #email-body > p {
+            font-size: .9em;
+            line-height: 1;
+            margin-bottom: 2rem;
+        }
+
+        #reply {
+            border: 1px solid #e3e3e3;
+            padding: .75rem;
+            border-radius: 5px;
+        }
+
+        #reply p {
+            margin: 0;
+            margin-bottom: 1rem;
+        }
+        
+        #reply-header {
+            font-size: .8em;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e3e3e3;
+        }
+
+        #reply-header p {
+            margin: 0;
+        }
+
+        #reply-body p {
+            line-height: 2;
+        }
+
+        #copy-signature {
+            border: 0;
+            padding: 8px 12.8px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 1px 2px 0 transparent, 0 1px 3px 1px transparent;
+            background: #1A73E8;
+        }
+
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</body>
+
 </html>
