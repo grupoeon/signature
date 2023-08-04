@@ -231,8 +231,18 @@
                 async copySignature() {
                     inlineStyles();
                     const signature = this.$refs.signature;
+                    
+                    // Clone the signature element
+                    const signatureClone = signature.cloneNode(true);
+                    
+                    // Remove all <template> elements from the clone
+                    const templateElements = signatureClone.querySelectorAll('template');
+                    for (const templateElement of templateElements) {
+                        templateElement.remove();
+                    }
+                    
                     const type = "text/html";
-                    const blob = new Blob([signature.outerHTML], { type });
+                    const blob = new Blob([signatureClone.outerHTML], { type });
                     const data = [new ClipboardItem({ [type]: blob })];
 
                     await navigator.clipboard.write(data);
